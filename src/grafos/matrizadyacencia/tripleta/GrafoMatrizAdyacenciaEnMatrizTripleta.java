@@ -22,6 +22,9 @@
  */
 package grafos.matrizadyacencia.tripleta;
 
+import java.util.ArrayDeque;
+import java.util.LinkedList;
+import java.util.Queue;
 import matriz.tripleta.MatrizEnTripleta;
 import matriz.util.Tripleta;
 
@@ -72,7 +75,47 @@ public class GrafoMatrizAdyacenciaEnMatrizTripleta {
         return grado;
     }
     
+
+    public void tiempoYRuta(int a, int b) {
+        Queue cola = new ArrayDeque();
+        Tripleta[] tripletas = matrizAdyacencia.getTripletas();
+        int[] visitado = new int[matrizAdyacencia.getCantidadValores()];
+        visitado[a] = 1;
+        System.out.println("Visitando " + a);
+        cola.add(a);
+        while (!cola.isEmpty()) {
+            a = (int) cola.poll();
+            int filaA = matrizAdyacencia.buscarFila(a);
+            for (int w = 0; w < matrizAdyacencia.getCantidadAdyacencias(filaA); w++) {
+                if (visitado[w] == 0) {
+                    visitado[w] = 1;
+                    if(tripletas[w+1].getV() == x){
+                        
+                    }
+                    System.out.println("Visitando " + a);
+                    cola.add(w);
+                }
+            }
+        }
+
+    }
     
+    /*public void tiempoYRuta(int a, int b, GrafoMatrizAdyacenciaEnMatrizTripleta matriz, int totalBases) {
+        int[] visitados = new int[totalBases];
+        Queue<Integer> pendientes = new LinkedList<Integer>();
+        pendientes.add(a);
+        int actual,next;
+        
+        while(!pendientes.isEmpty()){
+            actual = pendientes.poll();
+            for(int i=0;i<totalBases;i++){
+                next = 0;
+            }
+        }
+        
+    }*/
+    
+
 
     /**
      * public int mayorGrado() { int cantidadValores = (int)

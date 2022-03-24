@@ -191,4 +191,38 @@ public class MatrizEnTripleta {
         return (int) tripletas[0].getV();
     }
 
+    public int buscarFila(Object valor){
+        int i = 1;
+        while( i < tripletas.length && !tripletas[i].getV().equals(valor)){
+            i++;
+        }
+        if(tripletas[i-1].equals(valor)){
+            return tripletas[i-1].getF();
+        }
+        return 0;
+    }
+    
+    public int getCantidadAdyacencias(int fila) {
+        int i = 1;
+        int contadorAdyacencias = 0;
+        while( i < tripletas.length && tripletas[i].getF() != fila){
+            i++;
+            int j=i;
+            while(j < tripletas.length && tripletas[j].getF() == fila){
+                contadorAdyacencias++;
+                j++;
+            }
+        }
+        return contadorAdyacencias;
+    }
+    
+    public int getPosicion(int f, int c){
+        int i = 0;
+        while(i < tripletas.length && (tripletas[i].getF() != f)){
+                //contadorAdyacencias++;
+                i++;
+        }
+        return 0 ;
+    }
+
 }

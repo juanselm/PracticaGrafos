@@ -86,12 +86,14 @@ public class PracticaGrafos {
                }
             }
             
-            System.out.println(matriz.getMatrizTripleta().toString());
+            //System.out.println(matriz.getMatrizTripleta().toString());
             
         }catch (IOException e) {
              e.printStackTrace();
         }
         
+        int valor = matriz.getMatrizTripleta().getCantidadAdyacencias(5);
+        System.out.println(valor);
         String sc = "";
         while (!sc.equals("6")) {            
            sc = JOptionPane.showInputDialog(null, "Ingrese la opción deseada:\n"
