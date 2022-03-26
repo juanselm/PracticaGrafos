@@ -202,6 +202,18 @@ public class MatrizEnTripleta {
         return 0;
     }
     
+    public Tripleta getTripleta(int valor){
+        int i = 1;
+        while( i < tripletas.length && tripletas[i].getF() != valor){
+            i++;
+        }
+        if(tripletas[i-1].getF() == valor){
+            return tripletas[i-1];
+        }
+        
+        return null;
+    }
+    
     public int getCantidadAdyacencias(int fila) {
         int i = 1;
         int contadorAdyacencias = 0;

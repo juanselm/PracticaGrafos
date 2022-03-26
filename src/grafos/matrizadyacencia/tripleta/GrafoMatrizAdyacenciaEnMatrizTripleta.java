@@ -25,6 +25,7 @@ package grafos.matrizadyacencia.tripleta;
 import java.util.ArrayDeque;
 import java.util.LinkedList;
 import java.util.Queue;
+import java.util.Stack;
 import matriz.tripleta.MatrizEnTripleta;
 import matriz.util.Tripleta;
 
@@ -35,13 +36,16 @@ import matriz.util.Tripleta;
 public class GrafoMatrizAdyacenciaEnMatrizTripleta {
 
     private MatrizEnTripleta matrizAdyacencia;
+    private boolean[] visitados;
 
     public GrafoMatrizAdyacenciaEnMatrizTripleta(int cantidadVertices) {
         matrizAdyacencia = new MatrizEnTripleta(cantidadVertices, cantidadVertices);
+        visitados = new boolean[matrizAdyacencia.getTripletas()[0].getF()];
     }
     
     public GrafoMatrizAdyacenciaEnMatrizTripleta(int cantidadVertices, int diferentesDeCero) {
         matrizAdyacencia = new MatrizEnTripleta(cantidadVertices, cantidadVertices, diferentesDeCero);
+        visitados = new boolean[matrizAdyacencia.getTripletas()[0].getF()];
     }
     
     public MatrizEnTripleta getMatrizTripleta (){
@@ -75,7 +79,25 @@ public class GrafoMatrizAdyacenciaEnMatrizTripleta {
         return grado;
     }
     
-
+    public void tiempoYRutaDfs(int a, int b, int r) {
+        visitados[r-1] = true;
+        pilaRutaNueva.add(r);
+        if(r == b){
+            if(tiempoNuevo < tiempoMenor ){
+                tiempoMenos = tiempoNuevo;
+                pilaRutaMenor = pilaRutaNueva;               
+            }
+            return;
+        }
+        for (int w = 1; w <= matrizAdyacencia.getCantidadAdyacencias(r); w++) {
+            if ( !visitados[w]){
+                tiempoYRutaDfs(a, b, w);
+                pilaRutaNueva.poll(r);
+            }
+        }
+    }
+    
+    /*
     public void tiempoYRuta(int a, int b) {
         Queue cola = new ArrayDeque();
         Tripleta[] tripletas = matrizAdyacencia.getTripletas();
@@ -85,11 +107,10 @@ public class GrafoMatrizAdyacenciaEnMatrizTripleta {
         cola.add(a);
         while (!cola.isEmpty()) {
             a = (int) cola.poll();
-            int filaA = matrizAdyacencia.buscarFila(a);
-            for (int w = 0; w < matrizAdyacencia.getCantidadAdyacencias(filaA); w++) {
+            for (int w = 1; w <= matrizAdyacencia.getCantidadAdyacencias(a); w++) {
                 if (visitado[w] == 0) {
                     visitado[w] = 1;
-                    if(tripletas[w+1].getV() == x){
+                    if(tripletas[w].getV() == x){
                         
                     }
                     System.out.println("Visitando " + a);
@@ -97,8 +118,33 @@ public class GrafoMatrizAdyacenciaEnMatrizTripleta {
                 }
             }
         }
-
-    }
+    }*/
+    
+    /*public void tiempoYRuta(int a, int b) {
+        Queue cola = new ArrayDeque();
+        Stack<Integer> pila = new Stack();
+        Tripleta recorrido = matrizAdyacencia.getTripleta(a);
+        Tripleta[] tripletas = matrizAdyacencia.getTripletas();
+        int[] visitado = new int[matrizAdyacencia.getCantidadValores()];
+        visitado[a] = 1;
+        System.out.println("Visitando " + a);
+        cola.add(a);
+        pila.add(a);
+        while (!cola.isEmpty()) {
+            a = (int) cola.poll();
+            for (int w = 1; w <= matrizAdyacencia.getCantidadAdyacencias(a); w++) {
+                if (visitado[w] == 0) {
+                    visitado[w] = 1;
+                    pila.add(a);
+                    if(tripletas[w].getV() == x){
+                        
+                    }
+                    System.out.println("Visitando " + a);
+                    cola.add(w);
+                }
+            }
+        }
+    }/*
     
     /*public void tiempoYRuta(int a, int b, GrafoMatrizAdyacenciaEnMatrizTripleta matriz, int totalBases) {
         int[] visitados = new int[totalBases];
