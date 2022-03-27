@@ -22,6 +22,7 @@
  */
 package matriz.tripleta;
 
+import java.util.ArrayList;
 import matriz.util.Tripleta;
 
 public class MatrizEnTripleta {
@@ -202,7 +203,7 @@ public class MatrizEnTripleta {
         return 0;
     }
     
-    public Tripleta getTripleta(int valor){
+    /*public Tripleta getTripleta(int valor){
         int i = 1;
         while( i < tripletas.length && tripletas[i].getF() != valor){
             i++;
@@ -212,9 +213,20 @@ public class MatrizEnTripleta {
         }
         
         return null;
+    }*/
+    
+    public Tripleta getTripleta(int fila, int columna){
+        int i = 1;
+        while( i < tripletas.length){
+            if(fila == tripletas[i].getF() && columna == tripletas[i].getC()){
+                return tripletas[i];
+            }
+            i++;
+        }
+        return null;
     }
     
-    public int getCantidadAdyacencias(int fila) {
+    /*public int getCantidadAdyacencias(int fila) {
         int i = 1;
         int contadorAdyacencias = 0;
         while( i < tripletas.length && tripletas[i].getF() != fila){
@@ -226,6 +238,18 @@ public class MatrizEnTripleta {
             }
         }
         return contadorAdyacencias;
+    }*/
+    
+    public ArrayList getAdyacencias(int fila) {
+        int i = 1;
+        ArrayList<Integer> Adyacencias = new ArrayList();
+        while( i < tripletas.length && tripletas[i].getF() < fila+1){
+            if( tripletas[i].getF() == fila){
+                Adyacencias.add(tripletas[i].getC());
+            }
+            i++;
+        }
+        return Adyacencias;
     }
     
     public int getPosicion(int f, int c){

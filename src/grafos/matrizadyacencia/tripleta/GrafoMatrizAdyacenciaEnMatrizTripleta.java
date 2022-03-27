@@ -23,6 +23,7 @@
 package grafos.matrizadyacencia.tripleta;
 
 import java.util.ArrayDeque;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Queue;
 import java.util.Stack;
@@ -37,6 +38,9 @@ public class GrafoMatrizAdyacenciaEnMatrizTripleta {
 
     private MatrizEnTripleta matrizAdyacencia;
     private boolean[] visitados;
+    private int tiempoNuevo, tiempoMenor;
+    private Stack<Integer> pilaRutaMenor = new Stack(), pilaRutaNueva = new Stack();
+    private boolean hayadoMenor = false;
 
     public GrafoMatrizAdyacenciaEnMatrizTripleta(int cantidadVertices) {
         matrizAdyacencia = new MatrizEnTripleta(cantidadVertices, cantidadVertices);
@@ -59,6 +63,14 @@ public class GrafoMatrizAdyacenciaEnMatrizTripleta {
     public void crearAdyacencia(int i, int j,int tiempo) throws Exception {
         matrizAdyacencia.ingresarCelda(i, j, tiempo);
     }
+    
+    public int getTiempoMenor() {
+        return tiempoMenor;
+    }
+
+    public Stack<Integer> getPilaRutaMenor() {
+        return pilaRutaMenor;
+    }
 
     public int grado(int vertice) {
         int cv;
@@ -79,22 +91,43 @@ public class GrafoMatrizAdyacenciaEnMatrizTripleta {
         return grado;
     }
     
-    public void tiempoYRutaDfs(int a, int b, int r) {
+    private void comparacionesDFS(int r, int b ) {
         visitados[r-1] = true;
         pilaRutaNueva.add(r);
         if(r == b){
-            if(tiempoNuevo < tiempoMenor ){
-                tiempoMenos = tiempoNuevo;
-                pilaRutaMenor = pilaRutaNueva;               
+            if(!hayadoMenor){
+                tiempoMenor = tiempoNuevo;
+                pilaRutaMenor = (Stack<Integer>) pilaRutaNueva.clone();
+                hayadoMenor = true;
+            }else if(tiempoNuevo < tiempoMenor ){
+                tiempoMenor = tiempoNuevo;
+                pilaRutaMenor = (Stack<Integer>) pilaRutaNueva.clone();              
             }
             return;
         }
-        for (int w = 1; w <= matrizAdyacencia.getCantidadAdyacencias(r); w++) {
-            if ( !visitados[w]){
-                tiempoYRutaDfs(a, b, w);
-                pilaRutaNueva.poll(r);
+        ArrayList<Integer> basesAdyasentes = matrizAdyacencia.getAdyacencias(r);
+        for (int w = 0; w < basesAdyasentes.size(); w++) {
+            if ( !visitados[basesAdyasentes.get(w)-1]){
+                int tiempo = (int)matrizAdyacencia.getTripleta(r, basesAdyasentes.get(w)).getV();
+                tiempoNuevo += tiempo;
+                comparacionesDFS(basesAdyasentes.get(w), b);
+                visitados[basesAdyasentes.get(w)-1] = false;
+                pilaRutaNueva.pop();
+                tiempoNuevo -= tiempo;
             }
         }
+    }
+    
+    public void tiempoYRutaDFS(int b, int r ){
+        hayadoMenor = false;
+        tiempoMenor = 0;
+        tiempoNuevo = 0;
+        pilaRutaNueva.removeAllElements();
+        pilaRutaMenor.removeAllElements();
+        for(int i =0;i<visitados.length;i++){
+            visitados[i] = false;
+        }
+        comparacionesDFS(b, r);
     }
     
     /*

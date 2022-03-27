@@ -92,8 +92,23 @@ public class PracticaGrafos {
              e.printStackTrace();
         }
         
-        int valor = matriz.getMatrizTripleta().getCantidadAdyacencias(5);
-        System.out.println(valor);
+        matriz.tiempoYRutaDFS(5 ,4);
+        System.out.println(matriz.getTiempoMenor());
+        
+        matriz.tiempoYRutaDFS(1 ,5);
+        System.out.println(matriz.getTiempoMenor());
+        matriz.tiempoYRutaDFS(3, 4);
+        System.out.println(matriz.getTiempoMenor());
+        
+        matriz.tiempoYRutaDFS(4, 1);
+        System.out.println(matriz.getTiempoMenor());
+        
+        matriz.tiempoYRutaDFS(2, 4);
+        System.out.println(matriz.getTiempoMenor());
+
+
+        //int valor = matriz.getMatrizTripleta().getCantidadAdyacencias(5);
+        //System.out.println(valor);
         String sc = "";
         while (!sc.equals("6")) {            
            sc = JOptionPane.showInputDialog(null, "Ingrese la opción deseada:\n"
