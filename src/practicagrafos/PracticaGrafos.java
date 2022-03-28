@@ -65,7 +65,7 @@ public class PracticaGrafos {
                             JOptionPane.showMessageDialog(null,matriz.noSalen());   
                         break;
                     case "4":
-                            
+                            JOptionPane.showMessageDialog(null,matriz.aisladas());
                         break;
                     case "5":
                             System.exit(0);

@@ -252,6 +252,18 @@ public class MatrizEnTripleta {
         return Adyacencias;
     }
     
+    public ArrayList getAdyacenciasColumnas(int base) {
+        int i = 1;
+        ArrayList<Integer> Adyacencias = new ArrayList();
+        while( i < tripletas.length){
+            if( tripletas[i].getC() == base){
+                Adyacencias.add(tripletas[i].getF());
+            }
+            i++;
+        }
+        return Adyacencias;
+    }
+    
     public int getPosicion(int f, int c){
         int i = 0;
         while(i < tripletas.length && (tripletas[i].getF() != f)){

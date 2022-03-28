@@ -137,8 +137,8 @@ public class GrafoMatrizAdyacenciaEnMatrizTripleta {
         int i = 0;
         String aisladas = "";
         boolean primeraVez = true;
-        int totalDatos = matrizAdyacencia.getTripletas()[0].getC();
-        while(i < totalDatos){
+        int totalBases = matrizAdyacencia.getTripletas()[0].getC();
+        while(i < totalBases){
             if(matrizAdyacencia.getAdyacencias(i+1).isEmpty()){
                 if(primeraVez){
                     aisladas = "Estas son las bases desde las que no se pueden enviar mensajes: \n";
@@ -152,6 +152,31 @@ public class GrafoMatrizAdyacenciaEnMatrizTripleta {
         }
         if(aisladas.equals("")){
             aisladas = "Todas las bases pueden enviar mensajes";
+        }
+        return aisladas;
+    }
+    
+    public String aisladas(){
+        int i = 0;
+        String aisladas = "";
+        boolean primeraVez = true;
+        int totalBases = matrizAdyacencia.getTripletas()[0].getC();
+        while(i < totalBases){
+            if(matrizAdyacencia.getAdyacencias(i+1).isEmpty()){
+                if(matrizAdyacencia.getAdyacenciasColumnas(i+1).isEmpty()){
+                   if(primeraVez){
+                        aisladas = "Estas son las bases aisladas: \n";
+                        aisladas = aisladas + (i + 1);
+                        primeraVez = false;
+                    }else{
+                        aisladas = aisladas + "," + (i + 1);
+                    } 
+                }                
+            }
+            i++;
+        }
+        if(aisladas.equals("")){
+            aisladas = "No hay bases aisladas";
         }
         return aisladas;
     }
