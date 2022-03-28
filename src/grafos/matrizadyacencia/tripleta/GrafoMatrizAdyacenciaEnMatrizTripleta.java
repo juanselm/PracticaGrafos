@@ -188,7 +188,7 @@ public class GrafoMatrizAdyacenciaEnMatrizTripleta {
         BufferedReader bufferLectura = null;
         try {
             // Abrir el .csv en buffer de lectura
-            bufferLectura = new BufferedReader(new FileReader("../PracticaGrafos/src/tiempos_1.csv"));
+            bufferLectura = new BufferedReader(new FileReader("../PracticaGrafos/src/tiempos.csv"));
 
             // Leer una linea del archivo
             String linea = bufferLectura.readLine();
@@ -227,7 +227,7 @@ public class GrafoMatrizAdyacenciaEnMatrizTripleta {
         bufferLectura = null;
         try {
             // Abrir el .csv en buffer de lectura
-            bufferLectura = new BufferedReader(new FileReader("../PracticaGrafos/src/tiempos_1.csv"));
+            bufferLectura = new BufferedReader(new FileReader("../PracticaGrafos/src/tiempos.csv"));
             // Leer una linea del archivo
             String linea = bufferLectura.readLine();
             String[] campos = linea.split(",");

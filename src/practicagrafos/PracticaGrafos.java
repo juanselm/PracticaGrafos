@@ -25,7 +25,7 @@ public class PracticaGrafos {
         
         GrafoMatrizAdyacenciaEnMatrizTripleta matriz = new GrafoMatrizAdyacenciaEnMatrizTripleta(0,0);
         matriz = matriz.load();
-        
+        //System.out.println(matriz.getMatrizTripleta().toString());
         //matriz.tiempoYRutaDFS(2 ,4);
         //System.out.println(matriz.getTiempoMenor());
         //System.out.println(matriz.getPilaRutaMenor().toString());
@@ -56,7 +56,7 @@ public class PracticaGrafos {
                             baseB = Integer.parseInt(JOptionPane.showInputDialog(null , "Ingrese el número de la base destino:"));
                             matriz.tiempoYRutaDFS(baseA ,baseB);
                             if(matriz.getTiempoMenor() != 0){
-                                JOptionPane.showMessageDialog(null, "El menor tiempo desde la base " + baseA + " hasta la base "+ baseB + " es: "+ matriz.getTiempoMenor() + "segudos");
+                                JOptionPane.showMessageDialog(null, "El menor tiempo desde la base " + baseA + " hasta la base "+ baseB + " es: "+ matriz.getTiempoMenor() + " segudos");
                             } else{
                                 JOptionPane.showMessageDialog(null,"No se pudo mandar el mensaje ya que no existe una ruta entre las dos bases");
                             }
