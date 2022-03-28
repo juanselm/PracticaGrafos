@@ -250,72 +250,7 @@ public class GrafoMatrizAdyacenciaEnMatrizTripleta {
         }
         return matriz;
     }
-    /*
-    public void tiempoYRuta(int a, int b) {
-        Queue cola = new ArrayDeque();
-        Tripleta[] tripletas = matrizAdyacencia.getTripletas();
-        int[] visitado = new int[matrizAdyacencia.getCantidadValores()];
-        visitado[a] = 1;
-        System.out.println("Visitando " + a);
-        cola.add(a);
-        while (!cola.isEmpty()) {
-            a = (int) cola.poll();
-            for (int w = 1; w <= matrizAdyacencia.getCantidadAdyacencias(a); w++) {
-                if (visitado[w] == 0) {
-                    visitado[w] = 1;
-                    if(tripletas[w].getV() == x){
-                        
-                    }
-                    System.out.println("Visitando " + a);
-                    cola.add(w);
-                }
-            }
-        }
-    }*/
     
-    /*public void tiempoYRuta(int a, int b) {
-        Queue cola = new ArrayDeque();
-        Stack<Integer> pila = new Stack();
-        Tripleta recorrido = matrizAdyacencia.getTripleta(a);
-        Tripleta[] tripletas = matrizAdyacencia.getTripletas();
-        int[] visitado = new int[matrizAdyacencia.getCantidadValores()];
-        visitado[a] = 1;
-        System.out.println("Visitando " + a);
-        cola.add(a);
-        pila.add(a);
-        while (!cola.isEmpty()) {
-            a = (int) cola.poll();
-            for (int w = 1; w <= matrizAdyacencia.getCantidadAdyacencias(a); w++) {
-                if (visitado[w] == 0) {
-                    visitado[w] = 1;
-                    pila.add(a);
-                    if(tripletas[w].getV() == x){
-                        
-                    }
-                    System.out.println("Visitando " + a);
-                    cola.add(w);
-                }
-            }
-        }
-    }/*
-    
-    /*public void tiempoYRuta(int a, int b, GrafoMatrizAdyacenciaEnMatrizTripleta matriz, int totalBases) {
-        int[] visitados = new int[totalBases];
-        Queue<Integer> pendientes = new LinkedList<Integer>();
-        pendientes.add(a);
-        int actual,next;
-        
-        while(!pendientes.isEmpty()){
-            actual = pendientes.poll();
-            for(int i=0;i<totalBases;i++){
-                next = 0;
-            }
-        }
-        
-    }*/
-    
-
-
     /**
      * public int mayorGrado() { int cantidadValores = (int)
      * tripletas[0].getV(); int gradoMayor = 0; int gradoTemporal = 0; int
