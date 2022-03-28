@@ -23,118 +23,52 @@ public class PracticaGrafos {
     public static void main(String[] args) throws Exception {
         // TODO code application logic here
         
-        int contadorF = 0;
-        int contadorC = 0;
-        int contadorDiferentesCero = 0;
-        BufferedReader bufferLectura = null;
-        try {
-            // Abrir el .csv en buffer de lectura
-            bufferLectura = new BufferedReader(new FileReader("C:\\Users\\juans\\Documents\\NetBeansProjects\\PracticaGrafos\\src\\tiempos_1.csv"));
-
-            // Leer una linea del archivo
-            String linea = bufferLectura.readLine();
-            String[] campos = linea.split(",");
-            contadorC = campos.length - 1;
-            /**
-             * se recorre todo el archivo para conocer las 
-             * dimenciones y la cantidad de datos diferentes de cero
-             */
-            while ((linea = bufferLectura.readLine()) != null) {
-                
-               contadorF++;
-               // Sepapar la linea leída con el separador definido previamente
-               campos = linea.split(",");
-               for(int i = 1; i < campos.length; i++){
-                   if(!campos[i].equals("0") && i != contadorF){
-                       contadorDiferentesCero++;
-                   }
-               }
-               //System.out.println(Arrays.toString(campos));
-
-            }
-            //System.out.println("Los datos diferentes de cero son: " +contadorDiferentesCero);
-        }catch (IOException e) {
-             e.printStackTrace();
-        }finally {
-         // Cierro el buffer de lectura
-            if (bufferLectura != null) {
-                try {
-                    bufferLectura.close();
-                }catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
+        GrafoMatrizAdyacenciaEnMatrizTripleta matriz = new GrafoMatrizAdyacenciaEnMatrizTripleta(0,0);
+        matriz = matriz.load();
         
-        GrafoMatrizAdyacenciaEnMatrizTripleta matriz = new GrafoMatrizAdyacenciaEnMatrizTripleta(contadorF, contadorDiferentesCero);
-        bufferLectura = null;
-        try {
-            // Abrir el .csv en buffer de lectura
-            bufferLectura = new BufferedReader(new FileReader("C:\\Users\\juans\\Documents\\NetBeansProjects\\PracticaGrafos\\src\\tiempos_1.csv"));
-            // Leer una linea del archivo
-            String linea = bufferLectura.readLine();
-            String[] campos = linea.split(",");
-            int i = 0;
-            while ((linea = bufferLectura.readLine()) != null) {
-                i++;
-               // Sepapar la linea leída con el separador definido previamente
-               campos = linea.split(",");
-               for(int j = 1; j < campos.length; j++){
-                   if(!campos[j].equals("0") && i != j){
-                       matriz.crearAdyacencia(i, j, Integer.parseInt(campos[j]));
-                   }
-               }
-            }
-            
-            //System.out.println(matriz.getMatrizTripleta().toString());
-            
-        }catch (IOException e) {
-             e.printStackTrace();
-        }
+        //matriz.tiempoYRutaDFS(2 ,4);
+        //System.out.println(matriz.getTiempoMenor());
+        //System.out.println(matriz.getPilaRutaMenor().toString());
         
-        matriz.tiempoYRutaDFS(5 ,4);
-        System.out.println(matriz.getTiempoMenor());
-        
-        matriz.tiempoYRutaDFS(1 ,5);
-        System.out.println(matriz.getTiempoMenor());
-        matriz.tiempoYRutaDFS(3, 4);
-        System.out.println(matriz.getTiempoMenor());
-        
-        matriz.tiempoYRutaDFS(4, 1);
-        System.out.println(matriz.getTiempoMenor());
-        
-        matriz.tiempoYRutaDFS(2, 4);
-        System.out.println(matriz.getTiempoMenor());
-
-
-        //int valor = matriz.getMatrizTripleta().getCantidadAdyacencias(5);
-        //System.out.println(valor);
+        int baseA, baseB;
         String sc = "";
         while (!sc.equals("6")) {            
            sc = JOptionPane.showInputDialog(null, "Ingrese la opción deseada:\n"
                 + "1. Ruta más corta entre dos bases\n"
-                + "2. Tiempo mínimo de enviar un mensaje entre dos bases\n"
+                + "2. Tiempo mínimo para enviar un mensaje entre dos bases\n"
                 + "3. Validar que estaciones no pueden mandar mensajes\n"
                 + "4. Validar si hay una o varias estaciones aisladas\n"
-                + "4. Salir");
+                + "5. Salir");
             try {
                 switch(sc){
                     case "1":
-                        
+                            baseA = Integer.parseInt(JOptionPane.showInputDialog(null , "Ingrese el número de la base inicial:"));
+                            baseB = Integer.parseInt(JOptionPane.showInputDialog(null , "Ingrese el número de la base destino:"));
+                            matriz.tiempoYRutaDFS(baseA ,baseB);
+                            if(matriz.getPilaRutaMenor().size() != 0){
+                                JOptionPane.showMessageDialog(null, "La ruta más corta desde la base " + baseA + " hasta la base "+ baseB + " es: "+ matriz.getPilaRutaMenor().toString());
+                            }else{
+                                JOptionPane.showMessageDialog(null,"No existe ninguna ruta para llegar desde la base " + baseA + " hasta la base "+ baseB);
+                            }
                         break;
                     case "2":
-                        
-                        
+                            baseA = Integer.parseInt(JOptionPane.showInputDialog(null , "Ingrese el número de la base inicial:"));
+                            baseB = Integer.parseInt(JOptionPane.showInputDialog(null , "Ingrese el número de la base destino:"));
+                            matriz.tiempoYRutaDFS(baseA ,baseB);
+                            if(matriz.getTiempoMenor() != 0){
+                                JOptionPane.showMessageDialog(null, "El menor tiempo desde la base " + baseA + " hasta la base "+ baseB + " es: "+ matriz.getTiempoMenor() + "segudos");
+                            } else{
+                                JOptionPane.showMessageDialog(null,"No se pudo mandar el mensaje ya que no existe una ruta entre las dos bases");
+                            }
                         break;
                     case "3":
-                        
-                        
+                            
                         break;
                     case "4":
-                        
+                            
                         break;
                     case "5":
-                         
+                            System.exit(0);
                         break;
                     default:
                         JOptionPane.showMessageDialog(null, "Ha ingresado una opción incorrecta");

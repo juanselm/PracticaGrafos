@@ -22,6 +22,9 @@
  */
 package grafos.matrizadyacencia.tripleta;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -130,6 +133,75 @@ public class GrafoMatrizAdyacenciaEnMatrizTripleta {
         comparacionesDFS(b, r);
     }
     
+    public GrafoMatrizAdyacenciaEnMatrizTripleta load() throws Exception{
+        int contadorF = 0;
+        int contadorC = 0;
+        int contadorDiferentesCero = 0;
+        BufferedReader bufferLectura = null;
+        try {
+            // Abrir el .csv en buffer de lectura
+            bufferLectura = new BufferedReader(new FileReader("../PracticaGrafos/src/tiempos_1.csv"));
+
+            // Leer una linea del archivo
+            String linea = bufferLectura.readLine();
+            String[] campos = linea.split(",");
+            contadorC = campos.length - 1;
+            /**
+             * se recorre todo el archivo para conocer las 
+             * dimenciones y la cantidad de datos diferentes de cero
+             */
+            while ((linea = bufferLectura.readLine()) != null) {
+                
+               contadorF++;
+               // Sepapar la linea leída con el separador definido previamente
+               campos = linea.split(",");
+               for(int i = 1; i < campos.length; i++){
+                   if(!campos[i].equals("0") && i != contadorF){
+                       contadorDiferentesCero++;
+                   }
+               }
+
+            }
+        }catch (IOException e) {
+             e.printStackTrace();
+        }finally {
+         // Cierro el buffer de lectura
+            if (bufferLectura != null) {
+                try {
+                    bufferLectura.close();
+                }catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        
+        GrafoMatrizAdyacenciaEnMatrizTripleta matriz = new GrafoMatrizAdyacenciaEnMatrizTripleta(contadorF, contadorDiferentesCero);
+        bufferLectura = null;
+        try {
+            // Abrir el .csv en buffer de lectura
+            bufferLectura = new BufferedReader(new FileReader("../PracticaGrafos/src/tiempos_1.csv"));
+            // Leer una linea del archivo
+            String linea = bufferLectura.readLine();
+            String[] campos = linea.split(",");
+            int i = 0;
+            while ((linea = bufferLectura.readLine()) != null) {
+                i++;
+               // Sepapar la linea leída con el separador definido previamente
+               campos = linea.split(",");
+               for(int j = 1; j < campos.length; j++){
+                   if(!campos[j].equals("0") && i != j){
+                       matriz.crearAdyacencia(i, j, Integer.parseInt(campos[j]));
+                   }
+               }
+            }
+            
+            //System.out.println(matriz.getMatrizTripleta().toString());
+            
+        }catch (IOException e) {
+             e.printStackTrace();
+        }
+        return matriz;
+    }
     /*
     public void tiempoYRuta(int a, int b) {
         Queue cola = new ArrayDeque();
