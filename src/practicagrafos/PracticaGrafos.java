@@ -62,7 +62,7 @@ public class PracticaGrafos {
                             }
                         break;
                     case "3":
-                            
+                            JOptionPane.showMessageDialog(null,matriz.noSalen());   
                         break;
                     case "4":
                             

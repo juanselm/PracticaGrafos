@@ -108,13 +108,13 @@ public class GrafoMatrizAdyacenciaEnMatrizTripleta {
             }
             return;
         }
-        ArrayList<Integer> basesAdyasentes = matrizAdyacencia.getAdyacencias(r);
-        for (int w = 0; w < basesAdyasentes.size(); w++) {
-            if ( !visitados[basesAdyasentes.get(w)-1]){
-                int tiempo = (int)matrizAdyacencia.getTripleta(r, basesAdyasentes.get(w)).getV();
+        ArrayList<Integer> basesAdyacentes = matrizAdyacencia.getAdyacencias(r);
+        for (int w = 0; w < basesAdyacentes.size(); w++) {
+            if ( !visitados[basesAdyacentes.get(w)-1]){
+                int tiempo = (int)matrizAdyacencia.getTripleta(r, basesAdyacentes.get(w)).getV();
                 tiempoNuevo += tiempo;
-                comparacionesDFS(basesAdyasentes.get(w), b);
-                visitados[basesAdyasentes.get(w)-1] = false;
+                comparacionesDFS(basesAdyacentes.get(w), b);
+                visitados[basesAdyacentes.get(w)-1] = false;
                 pilaRutaNueva.pop();
                 tiempoNuevo -= tiempo;
             }
@@ -131,6 +131,29 @@ public class GrafoMatrizAdyacenciaEnMatrizTripleta {
             visitados[i] = false;
         }
         comparacionesDFS(b, r);
+    }
+    
+    public String noSalen(){
+        int i = 0;
+        String aisladas = "";
+        boolean primeraVez = true;
+        int totalDatos = matrizAdyacencia.getTripletas()[0].getC();
+        while(i < totalDatos){
+            if(matrizAdyacencia.getAdyacencias(i+1).isEmpty()){
+                if(primeraVez){
+                    aisladas = "Estas son las bases desde las que no se pueden enviar mensajes: \n";
+                    aisladas = aisladas + (i + 1);
+                    primeraVez = false;
+                }else{
+                    aisladas = aisladas + "," + (i + 1);
+                }
+            }
+            i++;
+        }
+        if(aisladas.equals("")){
+            aisladas = "Todas las bases pueden enviar mensajes";
+        }
+        return aisladas;
     }
     
     public GrafoMatrizAdyacenciaEnMatrizTripleta load() throws Exception{
